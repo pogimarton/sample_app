@@ -32,7 +32,7 @@ gem 'gravatar_image_tag', '1.0.0.pre2'
 #	gem 'annotate', '2.4.0'
 #end
 
-group :test do, :development do
+group :test, :development do
 	gem 'rspec-rails'
 	gem 'webrat'
 	gem 'spork', '0.9.0rc8'
