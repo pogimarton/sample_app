@@ -26,7 +26,12 @@ module SessionsHelper
     user == current_user
   end
   
+  def authenticate
+    deny_access unless signed_in?
+  end
+
   def deny_access
+    store_location
     redirect_to signin_path, :notice => "Please sign in to access this page."
   end
   
@@ -34,9 +39,7 @@ module SessionsHelper
     redirect_to(session[:return_to] || default)
 	clear_return_to
   end
-
-  
-  
+ 
   private
 
     def user_from_remember_token

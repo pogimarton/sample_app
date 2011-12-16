@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-	before_filter :authenticate, :only => [:index, :edit, :update]
+	before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
 	before_filter :correct_user, :only => [:edit, :update]
+	before_filter :admin_user,   :only => :destroy
 	
 	def index
 		@title = "All users"
@@ -50,6 +51,12 @@ class UsersController < ApplicationController
 		User.find(params[:id]).destroy
 		flash[:success] = "User destroyed."
 		redirect_to users_path
+	end
+	
+	def show
+		@user = User.find(params[:id])
+		@microposts = @user.microposts.paginate(:page => params[:page])
+		@title = @user.name
 	end
 	
 	
